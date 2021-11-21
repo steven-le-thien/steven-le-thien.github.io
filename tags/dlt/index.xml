@@ -8,12 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steven-le-thien.github.io/tags/dlt/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Alignment in linear network</title>
-      <link>https://steven-le-thien.github.io/p/alignment-in-linear-network/</link>
+      <title>Training invariances in deep nets and its consequences I: Linear networks</title>
+      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://steven-le-thien.github.io/p/alignment-in-linear-network/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</guid>
+      <description>Foreword This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I walk the fine line between being rigorous and keeping things intuitive, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!) so that we all enjoy this process and learn a thing or two.
+Classification tasks We describe a simple binary classification problem that takes a training dataset $\mathcal{D} = { (x_i, y_i) } _{i \in [n]}$ with $n$ training examples</description>
     </item>
     
   </channel>
