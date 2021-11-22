@@ -12,6 +12,18 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dlt' /><meta property='article:published_time' content='2021-11-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-20T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Training invariances in deep nets and its consequences I: Set up and Problem description.">
 <meta name="twitter:description" content="In this first post, we will take things slow and set things up for subsequent discussions, first for the simple case of linear networks; then more practical architectures including ReLU layers, convolutional layers and a certain ResNet variant for subsequent posts."><link rel="shortcut icon" href="/stitch.png">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H4DSHW5S7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H4DSHW5S7D');
+</script>
+
+
     </head>
     <body class="
     article-page has-toc
@@ -157,7 +169,7 @@ $$</p>
 </blockquote>
 <p>The motivation for such a function class does not come anywhere close to satisfactorily explaining its miraculous performance in practice in recently years. Deeper theoretical understanding of deep neural networks (large $L$) is the main goal of deep learning theory.</p>
 <h2 id="gradient-based-optimizers">Gradient based optimizers</h2>
-<p>Parameterization of function space into simpler spaces such as Euclidean space paves way for generic optimization strategies called first order methods. The name come from the fact that these algorithms use only the gradient information of the objective that it is trying to optimize. A ubiquitous example is <em>gradient descent</em> (GD): to find the minimizer of $\mathcal{R}(\theta)$ where $\theta \in \Theta \subseteq \R^k$ is a parameterization, assuming that the gradient of the risk with respect to $\theta$ is well-defined everywhere, the gradient descent algorithm initializes some $\theta_0$ iterates, say for a fixed, large number of times $T &gt; 0$:
+<p>Parameterization of function space into simpler spaces such as Euclidean space paves way for generic optimization strategies called first order methods. The name come from the fact that these algorithms use only the gradient information of the objective that it is trying to optimize. A ubiquitous example is <em>gradient descent</em> (GD): to find the minimizer of $\mathcal{R}(\theta)$ where $\theta \in \Theta \subseteq \R^k$ is a parameterization, assuming that the gradient of the risk with respect to $\theta$ is well-defined everywhere, the gradient descent algorithm initializes some $\theta_0$; and then iterates, say for a fixed, large number of times $T &gt; 0$:
 $$
 \theta_{j + 1} = \theta_j - \eta_j\nabla \mathcal{R}(\theta_j), \qquad \forall j \in [T]
 $$ where $\eta_j$ is the learning rate at step  $j$.</p>
