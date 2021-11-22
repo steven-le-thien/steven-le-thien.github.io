@@ -73,6 +73,8 @@ $$
 $$ We will make such a notion clear when analyzing nondifferentiable networks.&lt;/p&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;In conclusion, we have set up a &lt;em&gt;supervised learning&lt;/em&gt; problem for a binary classification task (think about differentiating dogs and cats) that involves training data (pictures of dogs/cats and corresponding labels). We have also described a popular paradigm used to tackle this problem: &lt;em&gt;empirical risk minimization&lt;/em&gt; via some loss function that judges the quality of some candidate function (based on its ability to differentiate dogs and cats pictures in the training data, without knowing the labels). Finally, we described certain generic &lt;em&gt;first order algorithms&lt;/em&gt; that &amp;lsquo;solve&amp;rsquo; the optimization problem at hand.&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;p&gt;Ziwei Ji and Matus Telgarsky. Gradient descent aligns the layers of deep linear networks. In International Conference on Learning Representations, 2019.&lt;/p&gt;
 
 </description>
         </item>
