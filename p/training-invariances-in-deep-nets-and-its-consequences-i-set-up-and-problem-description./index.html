@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this first post, we will take things slow and set things up for subsequent discussions, first for the simple case of linear networks; then more practical architectures including ReLU layers, convolutional layers and a certain ResNet variant for subsequent posts.'><title>Training invariances in deep nets and its consequences I: Set up and Problem description.</title>
+
+<link rel='canonical' href='https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Training invariances in deep nets and its consequences I: Set up and Problem description.'>
+<meta property='og:description' content='In this first post, we will take things slow and set things up for subsequent discussions, first for the simple case of linear networks; then more practical architectures including ReLU layers, convolutional layers and a certain ResNet variant for subsequent posts.'>
+<meta property='og:url' content='https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./'>
+<meta property='og:site_name' content='TLE'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='dlt' /><meta property='article:published_time' content='2021-11-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-11-20T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Training invariances in deep nets and its consequences I: Set up and Problem description.">
+<meta name="twitter:description" content="In this first post, we will take things slow and set things up for subsequent discussions, first for the simple case of linear networks; then more practical architectures including ReLU layers, convolutional layers and a certain ResNet variant for subsequent posts."><link rel="shortcut icon" href="/stitch.png">
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deep-learning-theory/" style="background-color: #2a9d8f; color: white;">
+                Deep Learning Theory
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./">Training invariances in deep nets and its consequences I: Set up and Problem description.</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        In this first post, we will take things slow and set things up for subsequent discussions, first for the simple case of linear networks; then more practical architectures including ReLU layers, convolutional layers and a certain ResNet variant for subsequent posts.
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 20, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <!-- raw HTML omitted -->
+<p>Disclaimer: This is a &lsquo;pilot&rsquo; post where we take things slow and set up for subsequent discussions. Most of the information here is contained in any first course of Machine Learning and is written with minimal assumption on prior knowledge. Experienced readers may want skip to the next post in the series.</p>
+<p>This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I try to balance between rigor and intuitiveness, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!) so that we all enjoy this process and learn a thing or two. I have annotated each section with <code>Basics</code> if it is meant to provide basic information that readers who are familiar with machine learning setups can easily scheme through or straight up skip ahead.</p>
+<h2 id="basics-set-up-of-binary-classification"><code>Basics</code> Set up of binary classification</h2>
+<p>We describe a simple binary classification problem that takes a training dataset $\mathcal{D} = \lbrace (x_i, y_i) \rbrace_{i \in [n]} $ with $n$ training examples. Each training example in the dataset is a pair: the first element is the input that lives in some space $\mathcal{X}$ and the second part is the label that is either $-1$ or $1$. For example, if the task is to build a model that can differentiate cats versus dogs given a picture of either kind, $\mathcal{X}$ can be the set of all pictures with fixed dimension and color channels; and the corresponding label $y$ to some training input  $x$ can be $-1$ if $x$ is a picture of a dog (this is training time, so we know the answer for each input  $x$ in the training dataset);  and  $1$ if it is a picture of a cat.</p>
+<p>That each training data point comes with a label makes  this  a <em>supervised learning</em> problem and that the label can only take $2$ possible values makes this a <em>binary</em> classification problem.</p>
+<h2 id="basics-empirical-risk-minimization-erm"><code>Basics</code> Empirical risk minimization (ERM)</h2>
+<p>The above section describes the problem. Now we describe <em>one</em> way to solve it by formulating a problem as a particular kind of optimization problem called ERM. Given a candidate solution model $f:\mathcal{X} \to \mathbb{R}$ and a single training input $x$, the label of  $x$ according to  $f$ is  $\text{sgn}(f(x)) \in \lbrace -1,1\rbrace$ where  $\text{sgn}(z)$ is  $1$ iff $z \geq 0$ and  $-1$ otherwise.</p>
+<p>We want to judge how good $f$ is doing on some training input $(x,y)$ using a loss function $\ell_f: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}$ (some authors define the loss function differently but the main idea stays consistent). By convention, the smaller the value of $\ell_f$, the better  $f$ is performing. As an example, consider the exponential loss (which is not used all that often in practice due to numerical issues but is great to think about to derive some intuition):  $$\ell_f(x,y) := \exp(-yf(x)).$$</p>
+<blockquote>
+<p>Some sanity check: if $f$ predicts a large negative value while  $y = 1$, then we would want the loss to be large (by convention). Indeed, if this is the case, then  $-yf(x)$ is  also a large positive value and so is $\ell_f(x,y)$. In the reverse case where $f$ makes a prediction that agrees with  $y$ in sign, it is also easy to verify that  $\ell_f(x,y)$ is small. In practice, people often use the logistic loss, which is closely related to the exponential loss presented here, since both, for example, are  minimized at $-\infty$ and are both monotonically decreasing.</p>
+</blockquote>
+<p>With some loss function, we can judge how good $f$ is doing on a single training input. When given a whole dataset of $n$ training inputs, the straightforward extension is called the empirical risk of $f$:
+$$
+{ \mathcal{R} }(f) := \frac{ 1 }{ n }  \sum_ { i = 1 } ^ n \ell_f(x_i,y_i).
+$$</p>
+<blockquote>
+<p>The name empirical risk comes from the fact that this is the expected loss over the empirical distribution given by the training data. The paradigm that solves classification tasks by formulating an empirical risk and  then minimize it is called ERM.</p>
+</blockquote>
+<h2 id="basics-optimization-and-parameterization"><code>Basics</code> Optimization and parameterization</h2>
+<p>If one can solve ERM efficiently, then one has a way to answer the classification task at hand; at least on the training examples. Unfortunately, without careful considerations and restraints, solving ERM can be very challenging. Recall that we have no restriction over possible candidate model $f$ so far, only that its domain is  $\mathcal{X}$ and its codomain is $\mathbb{R}$. Without any other restriction, the task of fining the minimizer of $\mathcal{R}$ is unthinkably hard. Therefore to make the optimization problem of minimizing $\mathcal{R}$ more tractable (and/or practical to run on a computer), a parameterization of $f$ can be used. For example, if   $\mathcal{X} = \R^d$ one constraints $f$ to be a linear function from  $\R^d \to \R$, then we know that all such linear functions take the form $f(z) = \langle z, a\rangle + b$ for some  $a \in \R^d$ and $b \in \R$ called parameters. Specifying a pair $(a,b)$ in the parameter space  $ \R^d \times \R = \R^{d+1}$ is equivalent to choosing a function $f$ from the space of all linear functions from  $\R^d \to \R$; but the former space is a lot nicer to work with, from an optimization perspective.</p>
+<blockquote>
+<p>For example, we can use multivariate calculus tools to take the derivative of the risk with respect to $a$ or  $b$ and then invoke first order optimality condition (derivative equals to  $0$) to solve  for some $(a^*,b^*)$ ; but taking the derivative of the risk with respect to a function is vastly more and also needlessly complicated. In fact, we would almost always want the parameter space to be a subset of some Euclidean space in order to make use of the nice differential properties for optimization purposes.</p>
+</blockquote>
+<h2 id="neural-networks">Neural networks</h2>
+<p>One particularly popular parameterization of function space is the use of neural networks. A fully-connected, feedforward neural network is a function defined as:
+$$
+f: \R ^ d \to \R :  z\mapsto \sigma_L (b_L + W_L \sigma_{L-1} (b_{L-1} + W_{L-1}\ldots \sigma_2(b_2 + W_2 \sigma_1(b_1 + (W_1z))) \ldots  )),
+$$ where $L$ is the number of layers,  $\{\sigma_i: \R \to \R\}_{i \in [L]}$ are nonlinear functions ( called activation functions), $\lbrace \left( W_i \in \R^{ n _ { i+1 } } \times \R ^ { n _ i } , b_i \in \R^{ n _ { i + 1 } } \right) \rbrace _ {i \in [L]}$ are the parameters ( called  weight matrices and  biases, respectively) and $\lbrace n _ i \in \mathbb{N}\rbrace _ { i \in [L + 1] }$ are fixed architectural specifications (called the number of neurons in each layer) such that $n _ 1 = d$ and  $n _ { L+1 } = 1$ - corresponding to the input and output dimension of the neural network.</p>
+<blockquote>
+<p>Another way to describe a neural network $f$ is by function composition. Let $p_i$ be affine functions defined as  $p_i(z) = W_iz + b_i$ for some parameters  $W_i$ and  $b_i$ that are matrices and vectors with appropriate dimensions, for all  $i \in [L]$, then we have:
+$$
+f = \sigma_L \circ p_L \circ \sigma_{L-1} \circ p_{L-1} \circ \ldots \circ \sigma_1 \circ p_1.
+$$</p>
+</blockquote>
+<p>The motivation for such a function class does not come anywhere close to satisfactorily explaining its miraculous performance in practice in recently years. Deeper theoretical understanding of deep neural networks (large $L$) is the main goal of deep learning theory.</p>
+<h2 id="gradient-based-optimizers">Gradient based optimizers</h2>
+<p>Parameterization of function space into simpler spaces such as Euclidean space paves way for generic optimization strategies called first order methods. The name come from the fact that these algorithms use only the gradient information of the objective that it is trying to optimize. A ubiquitous example is <em>gradient descent</em> (GD): to find the minimizer of $\mathcal{R}(\theta)$ where $\theta \in \Theta \subseteq \R^k$ is a parameterization, assuming that the gradient of the risk with respect to $\theta$ is well-defined everywhere, the gradient descent algorithm initializes some $\theta_0$ iterates, say for a fixed, large number of times $T &gt; 0$:
+$$
+\theta_{j + 1} = \theta_j - \eta_j\nabla \mathcal{R}(\theta_j), \qquad \forall j \in [T]
+$$ where $\eta_j$ is the learning rate at step  $j$.</p>
+<blockquote>
+<p>Intuitively, gradient descent, at each steps, tries to pick the direction in which the objective function value decreases the fastest (given by the negative gradient direction) and then makes some progress based on the learning rate.</p>
+</blockquote>
+<p>For theoretical analysis purposes, a lot of time, it is much more convenient to worth with continuous time instead of the discrete steps in gradient descent. The continuous time version of gradient descent is called <em>gradient flow</em> (GF) and is described by the differential equation:
+$$
+\frac{ \textup{d} \theta(t) }{ \textup{d} t} = - \nabla \mathcal{R}(\theta)
+$$</p>
+<blockquote>
+<p>Notice that GF does not require choosing a step size.</p>
+</blockquote>
+<p>One special property of GF - called the <em>descent property</em> is that it never increases the value of the risk function (<!-- raw HTML omitted -->Ji and Telgarsky, 2019<!-- raw HTML omitted -->):
+$$
+\frac{ \textup{d} \mathcal{R}(\theta(t))}{ \textup{d} t} = \left \langle \nabla \mathcal{R}(\theta), \frac{ \textup{d} \theta(t) }{ \textup{d} t} \right \rangle = - \| \nabla \mathcal{R}(\theta) \|^2 \leq 0
+$$ where the first line is an application of the smooth chain rule and the second line is by definition of gradient flow.</p>
+<p>When the gradient of the risk is not guaranteed to exists everywhere but almost everywhere (for example, in the case of ReLU networks which we will define when needed), some notion of subdifferential $\partial$ is use and GF is a solution to the differential inclusion:
+$$
+\frac{ \textup{d} \theta(t) }{ \textup{d} t} \in - \partial \mathcal{R}(\theta).
+$$ We will make such a notion clear when analyzing nondifferentiable networks.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In conclusion, we have set up a <em>supervised learning</em> problem for a binary classification task (think about differentiating dogs and cats) that involves training data (pictures of dogs/cats and corresponding labels). We have also described a popular paradigm used to tackle this problem: <em>empirical risk minimization</em> via some loss function that judges the quality of some candidate function (based on its ability to differentiate dogs and cats pictures in the training data, without knowing the labels). Finally, we described certain generic <em>first order algorithms</em> that &lsquo;solve&rsquo; the optimization problem at hand.</p>
+
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/dlt/">dlt</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 TLE
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.5.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#basics-set-up-of-binary-classification"><code>Basics</code> Set up of binary classification</a></li>
+    <li><a href="#basics-empirical-risk-minimization-erm"><code>Basics</code> Empirical risk minimization (ERM)</a></li>
+    <li><a href="#basics-optimization-and-parameterization"><code>Basics</code> Optimization and parameterization</a></li>
+    <li><a href="#neural-networks">Neural networks</a></li>
+    <li><a href="#gradient-based-optimizers">Gradient based optimizers</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

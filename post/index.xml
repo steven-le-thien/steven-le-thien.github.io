@@ -8,13 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steven-le-thien.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Training invariances in deep nets and its consequences I: Linear networks</title>
-      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</link>
+      <title>Training invariances in deep nets and its consequences I: Set up and Problem description.</title>
+      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</guid>
-      <description>Foreword This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I walk the fine line between being rigorous and keeping things intuitive, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!) so that we all enjoy this process and learn a thing or two.
-Classification tasks We describe a simple binary classification problem that takes a training dataset $\mathcal{D} = { (x_i, y_i) } _{i \in [n]}$ with $n$ training examples</description>
+      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</guid>
+      <description>Disclaimer: This is a &amp;lsquo;pilot&amp;rsquo; post where we take things slow and set up for subsequent discussions. Most of the information here is contained in any first course of Machine Learning and is written with minimal assumption on prior knowledge. Experienced readers may want skip to the next post in the series.
+This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I try to balance between rigor and intuitiveness, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!</description>
     </item>
     
   </channel>

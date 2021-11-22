@@ -7,17 +7,72 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steven-le-thien.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Training invariances in deep nets and its consequences I: Linear networks</title>
-        <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</link>
+        <title>Training invariances in deep nets and its consequences I: Set up and Problem description.</title>
+        <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</link>
         <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
         
-        <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-linear-networks/</guid>
+        <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</guid>
         <description>&lt;!-- raw HTML omitted --&gt;
-&lt;h2 id=&#34;foreword&#34;&gt;Foreword&lt;/h2&gt;
-&lt;p&gt;This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I walk the fine line between being rigorous and keeping things intuitive, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!) so that we all enjoy this process and learn a thing or two.&lt;/p&gt;
-&lt;h2 id=&#34;classification-tasks&#34;&gt;Classification tasks&lt;/h2&gt;
-&lt;p&gt;We describe a simple binary classification problem that takes a training dataset $\mathcal{D} = { (x_i, y_i) } _{i \in [n]}$ with $n$ training examples&lt;/p&gt;
-&lt;p&gt;Deep nets trained to perform classification tasks intuitively depend on the loss function to form representations that groups training examples&lt;/p&gt;
+&lt;p&gt;Disclaimer: This is a &amp;lsquo;pilot&amp;rsquo; post where we take things slow and set up for subsequent discussions. Most of the information here is contained in any first course of Machine Learning and is written with minimal assumption on prior knowledge. Experienced readers may want skip to the next post in the series.&lt;/p&gt;
+&lt;p&gt;This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I try to balance between rigor and intuitiveness, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!) so that we all enjoy this process and learn a thing or two. I have annotated each section with &lt;code&gt;Basics&lt;/code&gt; if it is meant to provide basic information that readers who are familiar with machine learning setups can easily scheme through or straight up skip ahead.&lt;/p&gt;
+&lt;h2 id=&#34;basics-set-up-of-binary-classification&#34;&gt;&lt;code&gt;Basics&lt;/code&gt; Set up of binary classification&lt;/h2&gt;
+&lt;p&gt;We describe a simple binary classification problem that takes a training dataset $\mathcal{D} = \lbrace (x_i, y_i) \rbrace_{i \in [n]} $ with $n$ training examples. Each training example in the dataset is a pair: the first element is the input that lives in some space $\mathcal{X}$ and the second part is the label that is either $-1$ or $1$. For example, if the task is to build a model that can differentiate cats versus dogs given a picture of either kind, $\mathcal{X}$ can be the set of all pictures with fixed dimension and color channels; and the corresponding label $y$ to some training input  $x$ can be $-1$ if $x$ is a picture of a dog (this is training time, so we know the answer for each input  $x$ in the training dataset);  and  $1$ if it is a picture of a cat.&lt;/p&gt;
+&lt;p&gt;That each training data point comes with a label makes  this  a &lt;em&gt;supervised learning&lt;/em&gt; problem and that the label can only take $2$ possible values makes this a &lt;em&gt;binary&lt;/em&gt; classification problem.&lt;/p&gt;
+&lt;h2 id=&#34;basics-empirical-risk-minimization-erm&#34;&gt;&lt;code&gt;Basics&lt;/code&gt; Empirical risk minimization (ERM)&lt;/h2&gt;
+&lt;p&gt;The above section describes the problem. Now we describe &lt;em&gt;one&lt;/em&gt; way to solve it by formulating a problem as a particular kind of optimization problem called ERM. Given a candidate solution model $f:\mathcal{X} \to \mathbb{R}$ and a single training input $x$, the label of  $x$ according to  $f$ is  $\text{sgn}(f(x)) \in \lbrace -1,1\rbrace$ where  $\text{sgn}(z)$ is  $1$ iff $z \geq 0$ and  $-1$ otherwise.&lt;/p&gt;
+&lt;p&gt;We want to judge how good $f$ is doing on some training input $(x,y)$ using a loss function $\ell_f: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}$ (some authors define the loss function differently but the main idea stays consistent). By convention, the smaller the value of $\ell_f$, the better  $f$ is performing. As an example, consider the exponential loss (which is not used all that often in practice due to numerical issues but is great to think about to derive some intuition):  $$\ell_f(x,y) := \exp(-yf(x)).$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Some sanity check: if $f$ predicts a large negative value while  $y = 1$, then we would want the loss to be large (by convention). Indeed, if this is the case, then  $-yf(x)$ is  also a large positive value and so is $\ell_f(x,y)$. In the reverse case where $f$ makes a prediction that agrees with  $y$ in sign, it is also easy to verify that  $\ell_f(x,y)$ is small. In practice, people often use the logistic loss, which is closely related to the exponential loss presented here, since both, for example, are  minimized at $-\infty$ and are both monotonically decreasing.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;With some loss function, we can judge how good $f$ is doing on a single training input. When given a whole dataset of $n$ training inputs, the straightforward extension is called the empirical risk of $f$:
+$$
+{ \mathcal{R} }(f) := \frac{ 1 }{ n }  \sum_ { i = 1 } ^ n \ell_f(x_i,y_i).
+$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The name empirical risk comes from the fact that this is the expected loss over the empirical distribution given by the training data. The paradigm that solves classification tasks by formulating an empirical risk and  then minimize it is called ERM.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;basics-optimization-and-parameterization&#34;&gt;&lt;code&gt;Basics&lt;/code&gt; Optimization and parameterization&lt;/h2&gt;
+&lt;p&gt;If one can solve ERM efficiently, then one has a way to answer the classification task at hand; at least on the training examples. Unfortunately, without careful considerations and restraints, solving ERM can be very challenging. Recall that we have no restriction over possible candidate model $f$ so far, only that its domain is  $\mathcal{X}$ and its codomain is $\mathbb{R}$. Without any other restriction, the task of fining the minimizer of $\mathcal{R}$ is unthinkably hard. Therefore to make the optimization problem of minimizing $\mathcal{R}$ more tractable (and/or practical to run on a computer), a parameterization of $f$ can be used. For example, if   $\mathcal{X} = \R^d$ one constraints $f$ to be a linear function from  $\R^d \to \R$, then we know that all such linear functions take the form $f(z) = \langle z, a\rangle + b$ for some  $a \in \R^d$ and $b \in \R$ called parameters. Specifying a pair $(a,b)$ in the parameter space  $ \R^d \times \R = \R^{d+1}$ is equivalent to choosing a function $f$ from the space of all linear functions from  $\R^d \to \R$; but the former space is a lot nicer to work with, from an optimization perspective.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For example, we can use multivariate calculus tools to take the derivative of the risk with respect to $a$ or  $b$ and then invoke first order optimality condition (derivative equals to  $0$) to solve  for some $(a^*,b^*)$ ; but taking the derivative of the risk with respect to a function is vastly more and also needlessly complicated. In fact, we would almost always want the parameter space to be a subset of some Euclidean space in order to make use of the nice differential properties for optimization purposes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;neural-networks&#34;&gt;Neural networks&lt;/h2&gt;
+&lt;p&gt;One particularly popular parameterization of function space is the use of neural networks. A fully-connected, feedforward neural network is a function defined as:
+$$
+f: \R ^ d \to \R :  z\mapsto \sigma_L (b_L + W_L \sigma_{L-1} (b_{L-1} + W_{L-1}\ldots \sigma_2(b_2 + W_2 \sigma_1(b_1 + (W_1z))) \ldots  )),
+$$ where $L$ is the number of layers,  $\{\sigma_i: \R \to \R\}_{i \in [L]}$ are nonlinear functions ( called activation functions), $\lbrace \left( W_i \in \R^{ n _ { i+1 } } \times \R ^ { n _ i } , b_i \in \R^{ n _ { i + 1 } } \right) \rbrace _ {i \in [L]}$ are the parameters ( called  weight matrices and  biases, respectively) and $\lbrace n _ i \in \mathbb{N}\rbrace _ { i \in [L + 1] }$ are fixed architectural specifications (called the number of neurons in each layer) such that $n _ 1 = d$ and  $n _ { L+1 } = 1$ - corresponding to the input and output dimension of the neural network.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Another way to describe a neural network $f$ is by function composition. Let $p_i$ be affine functions defined as  $p_i(z) = W_iz + b_i$ for some parameters  $W_i$ and  $b_i$ that are matrices and vectors with appropriate dimensions, for all  $i \in [L]$, then we have:
+$$
+f = \sigma_L \circ p_L \circ \sigma_{L-1} \circ p_{L-1} \circ \ldots \circ \sigma_1 \circ p_1.
+$$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The motivation for such a function class does not come anywhere close to satisfactorily explaining its miraculous performance in practice in recently years. Deeper theoretical understanding of deep neural networks (large $L$) is the main goal of deep learning theory.&lt;/p&gt;
+&lt;h2 id=&#34;gradient-based-optimizers&#34;&gt;Gradient based optimizers&lt;/h2&gt;
+&lt;p&gt;Parameterization of function space into simpler spaces such as Euclidean space paves way for generic optimization strategies called first order methods. The name come from the fact that these algorithms use only the gradient information of the objective that it is trying to optimize. A ubiquitous example is &lt;em&gt;gradient descent&lt;/em&gt; (GD): to find the minimizer of $\mathcal{R}(\theta)$ where $\theta \in \Theta \subseteq \R^k$ is a parameterization, assuming that the gradient of the risk with respect to $\theta$ is well-defined everywhere, the gradient descent algorithm initializes some $\theta_0$ iterates, say for a fixed, large number of times $T &amp;gt; 0$:
+$$
+\theta_{j + 1} = \theta_j - \eta_j\nabla \mathcal{R}(\theta_j), \qquad \forall j \in [T]
+$$ where $\eta_j$ is the learning rate at step  $j$.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Intuitively, gradient descent, at each steps, tries to pick the direction in which the objective function value decreases the fastest (given by the negative gradient direction) and then makes some progress based on the learning rate.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For theoretical analysis purposes, a lot of time, it is much more convenient to worth with continuous time instead of the discrete steps in gradient descent. The continuous time version of gradient descent is called &lt;em&gt;gradient flow&lt;/em&gt; (GF) and is described by the differential equation:
+$$
+\frac{ \textup{d} \theta(t) }{ \textup{d} t} = - \nabla \mathcal{R}(\theta)
+$$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Notice that GF does not require choosing a step size.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;One special property of GF - called the &lt;em&gt;descent property&lt;/em&gt; is that it never increases the value of the risk function (&lt;!-- raw HTML omitted --&gt;Ji and Telgarsky, 2019&lt;!-- raw HTML omitted --&gt;):
+$$
+\frac{ \textup{d} \mathcal{R}(\theta(t))}{ \textup{d} t} = \left \langle \nabla \mathcal{R}(\theta), \frac{ \textup{d} \theta(t) }{ \textup{d} t} \right \rangle = - \| \nabla \mathcal{R}(\theta) \|^2 \leq 0
+$$ where the first line is an application of the smooth chain rule and the second line is by definition of gradient flow.&lt;/p&gt;
+&lt;p&gt;When the gradient of the risk is not guaranteed to exists everywhere but almost everywhere (for example, in the case of ReLU networks which we will define when needed), some notion of subdifferential $\partial$ is use and GF is a solution to the differential inclusion:
+$$
+\frac{ \textup{d} \theta(t) }{ \textup{d} t} \in - \partial \mathcal{R}(\theta).
+$$ We will make such a notion clear when analyzing nondifferentiable networks.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In conclusion, we have set up a &lt;em&gt;supervised learning&lt;/em&gt; problem for a binary classification task (think about differentiating dogs and cats) that involves training data (pictures of dogs/cats and corresponding labels). We have also described a popular paradigm used to tackle this problem: &lt;em&gt;empirical risk minimization&lt;/em&gt; via some loss function that judges the quality of some candidate function (based on its ability to differentiate dogs and cats pictures in the training data, without knowing the labels). Finally, we described certain generic &lt;em&gt;first order algorithms&lt;/em&gt; that &amp;lsquo;solve&amp;rsquo; the optimization problem at hand.&lt;/p&gt;
 
 </description>
         </item>
