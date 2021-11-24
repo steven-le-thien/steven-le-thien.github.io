@@ -8,13 +8,23 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steven-le-thien.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Training invariances in deep nets and its consequences I: Set up and Problem description.</title>
-      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</link>
+      <title>Training invariances in deep nets and its consequences I: Set up and Problem description</title>
+      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description./</guid>
+      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-i-set-up-and-problem-description/</guid>
       <description>Disclaimer: This is a &amp;lsquo;pilot&amp;rsquo; post where we take things slow and set up for subsequent discussions. Most of the information here is contained in any first course in Machine Learning and is written with minimal assumption on prior knowledge. Experienced readers may want skip to the next post in the series.
 This post, and subsequent posts, aim to be self-content while carrying a narrative that builds up over time. As I try to balance between rigor and intuitiveness, I really appreciate any constructive feedback as to how I can improve my writings (one of the main reasons I started this blog!</description>
+    </item>
+    
+    <item>
+      <title>Training invariances in deep nets and its consequences II: Linear network</title>
+      <link>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-ii-linear-network/</link>
+      <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://steven-le-thien.github.io/p/training-invariances-in-deep-nets-and-its-consequences-ii-linear-network/</guid>
+      <description>The training invariance that I will cover has appeared in Arora et al. (2018), Du et al. (2019) and Ji and Telgarsky (2019). I will mainly use the approach in Ji and Telgarsky (2019) since they are rather intuitive.
+Recall that from the last series, we have set up the binary classification problem with dataset $\lbrace (x_i \in \mathcal{X}, y_i \in \lbrace -1, 1 \rbrace ) \rbrace_{i \in [n]}$ of $n$ training examples.</description>
     </item>
     
   </channel>
