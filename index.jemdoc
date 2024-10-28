@@ -24,7 +24,7 @@ I am broadly interested in
 - Mathematical and Algorithmic Biology
 
 
-My current research focuses on applying graph limit techniques to better understand generalization behaviors of deep learning model tailored to graph data (graph neural networks). In particular, I am interested in the following questions (with some references to my work on the topics): 
+My current research focuses on applying graph limit techniques to better understand generalization behaviors of deep learning model tailored to graph data (graph neural networks). In particular, I am interested in the following questions: 
 
 . Continuity: To what extent, and under what assumptions, can we guarantee classification/prediction consistency of the deep learning model when the input graphs are “structurally” similar?  
 . Out-of-distribution size generalization: if a neural networks are trained to accurately predict a phenomenon on datasets of graphs of size $n$, can we expect it to behave decently on “structurally” similar datasets of size $N > n$? 
