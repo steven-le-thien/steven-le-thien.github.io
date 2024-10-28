@@ -1,7 +1,10 @@
 # jemdoc: menu{MENU}{publications.html}, nofooter
-== Underscore Example
+== Publications
 
-Like *bold* and /italic/, _underscore_ can be used for emphasis in this modified version of +jemdoc+.  Useful for highlighting different parts of a bibliography item as:
+Please allow a few seconds for the BibBase engine to load
 
-1. _First Author_, Second Author, and *Corresponding Author*, "Amazing Paper," /High-impact Journal/, vol.~1, pp.~1--10 (2014).
+~~~
+{}{raw}
+<script src="https://bibbase.org/show?bib=natisb.github.io%2FPub.bib&jsonp=1"></script>
+~~~
 
