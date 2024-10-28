@@ -3,6 +3,7 @@
 
 ~~~
 {}{img_left}{picture_pima.jpg}{picture_pima}{450px}{300px}{IMGLINKTARGET}
+PhD researcher\n 
 MIT Stata Center\n 
 32 Vassar St\n
 Cambridge, MA 02139\n
@@ -16,50 +17,17 @@ I am a graduate student in [https://www.csail.mit.edu CSAIL/EECS] department at 
 
 
 == Research
+I am broadly interested in 
+- Theory of (Geometric) Deep Learning 
+- Learning under Invariances/Equivariances 
+- Continuous Optimization
+- Mathematical and Algorithmic Biology
 
 
+My current research focuses on applying graph limit techniques to better understand generalization behaviors of deep learning model tailored to graph data (graph neural networks). In particular, I am interested in the following questions (with some references to my work on the topics): 
 
+. Continuity: To what extent, and under what assumptions, can we guarantee classification/prediction consistency of the deep learning model when the input graphs are “structurally” similar?  
+. Out-of-distribution size generalization: if a neural networks are trained to accurately predict a phenomenon on datasets of graphs of size $n$, can we expect it to behave decently on “structurally” similar datasets of size $N > n$? 
+. Optimization: Can gradient-based learning algorithms on deep learning architectures learn graph datasets? In light of computational hardness of many graph problems, we do not expect to be able to train an efficient model for every task, so what exactly is learnt? 
 
-In this modified version of +jemdoc+, a LaTeX equation block can be typed in as
-\(
-\nabla \cdot \mathbf{D} = \rho_f\\
-\nabla \cdot \mathbf{B} = 0,\\
-\nabla \times \mathbf{E} = -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} = \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\)
-
-You can also align equations using LaTeX's +aligned+ block:
-\(
-\begin{aligned}
-\nabla \cdot \mathbf{D} &= \rho_f\\
-\nabla \cdot \mathbf{B} &= 0\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\)
-
-To number the equation block, wrap the equations with LaTeX's +equation+ block:
-\(
-\begin{equation}
-\begin{aligned}
-\nabla \cdot \mathbf{D} &= \rho_f\\
-\nabla \cdot \mathbf{B} &= 0\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\end{equation}
-\)
-
-Instead, you can use LaTeX's +align+ (not +aligned+) block to number the individual equations:
-\(
-\begin{align}
-\nabla \cdot \mathbf{D} &= \rho_f\label{eq:D}\\
-\nabla \cdot \mathbf{B} &= 0\label{eq:B}\\
-\nabla \times \mathbf{E} &= -\frac{\partial\mathbf{B}}{\partial t}\label{eq:E}\\
-\nabla \times \mathbf{H} &= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}\label{eq:H}
-\end{align}
-\)
-
-You can also type inline equations as $A x = b$.  Referencing equations is done as Eqs.~$\eqref{eq:E}$ and $\eqref{eq:H}$.
-
-
+At the heart of these questions are different ways to endow the space of graphs with topological/geometric structures. This is where graph limit tools, built on decades of work in graph theory - come into play. Graphons are powerful mathematical object that captures convergent sequence of dense graphs. Beyond graphons, I am very curious in answering these questions for sparse graphs, which are more prevalent in practice (our recent paper uses graphop to model sparse graph limit). There is still much work to be done in applying these tools to better understand deep learning models on graphs, with many untested ideas. 

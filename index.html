@@ -22,9 +22,10 @@ MathJax.Hub.Config({
 <td id="layout-menu">
 <div class="menu-category">Thien Le</div>
 <div class="menu-item"><a href="index.html" class="current">About</a></div>
+<div class="menu-item"><a href="oct2024_cv.pdf">CV&nbsp;(pdf)</a></div>
 <div class="menu-item"><a href="publications.html">Publications</a></div>
-<div class="menu-item"><a href="talks.html">Talks</a></div>
-<div class="menu-item"><a href="legacy_site/index.html" class="current">Old&nbsp;blog</a></div>
+<div class="menu-item"><a href="talks.html">Talks/Slides</a></div>
+<div class="menu-item"><a href="blog.html">Old&nbsp;blog</a></div>
 </td>
 <td id="layout-content">
 <div id="toptitle">
@@ -32,7 +33,8 @@ MathJax.Hub.Config({
 </div>
 <table class="imgtable"><tr><td>
 <a href="IMGLINKTARGET"><img src="picture_pima.jpg" alt="picture_pima" width="450px" height="300px" /></a>&nbsp;</td>
-<td align="left"><p>MIT Stata Center<br /> 
+<td align="left"><p>PhD researcher<br /> 
+MIT Stata Center<br /> 
 32 Vassar St<br />
 Cambridge, MA 02139<br />
 Email: thienle [at] mit (dot) edu<br /> 
@@ -43,51 +45,36 @@ Github: <a href="https://github.com/steven-le-thien/" target=&ldquo;blank&rdquo;
 <p>I am a graduate student in <a href="https://www.csail.mit.edu" target=&ldquo;blank&rdquo;>CSAIL/EECS</a> department at <a href="https://www.mit.edu" target=&ldquo;blank&rdquo;>MIT</a> started in Fall 2019. I am fortunate to be advised by <a href="https://people.csail.mit.edu/stefje/index.html" target=&ldquo;blank&rdquo;>Stefanie Jegelka</a>. I did my undergraduate in Mathematics and Computer Science  from 2016 to 2019 at <a href="https://illinois.edu" target=&ldquo;blank&rdquo;>UIUC</a> where I was fortunate to work with <a href="https://tandy.cs.illinois.edu" target=&ldquo;blank&rdquo;>Tandy Warnow</a> and her students on computational phylogenetics. Before that, I worked briefly in system biology with <a href="https://sites.bioe.uw.edu/imoukhuede/" target=&ldquo;blank&rdquo;>P.I. Imoukhuede</a> 
 </p>
 <h2>Research</h2>
-<p>In this modified version of <tt>jemdoc</tt>, a LaTeX equation block can be typed in as
+<p>I am broadly interested in 
 </p>
-<p style="text-align:center">
-\[
-\nabla \cdot \mathbf{D} = \rho_f\\
-\nabla \cdot \mathbf{B} = 0,\\
-\nabla \times \mathbf{E} = -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} = \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\]
-</p><p>You can also align equations using LaTeX's <tt>aligned</tt> block:
+<ul>
+<li><p>Theory of (Geometric) Deep Learning 
 </p>
-<p style="text-align:center">
-\[
-\begin{aligned}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\\
-\nabla \cdot \mathbf{B} &amp;= 0\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\]
-</p><p>To number the equation block, wrap the equations with LaTeX's <tt>equation</tt> block:
+</li>
+<li><p>Learning under Invariances/Equivariances 
 </p>
-<p style="text-align:center">
-\[
-\begin{equation}
-\begin{aligned}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\\
-\nabla \cdot \mathbf{B} &amp;= 0\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}.
-\end{aligned}
-\end{equation}
-\]
-</p><p>Instead, you can use LaTeX's <tt>align</tt> (not <tt>aligned</tt>) block to number the individual equations:
+</li>
+<li><p>Continuous Optimization
 </p>
-<p style="text-align:center">
-\[
-\begin{align}
-\nabla \cdot \mathbf{D} &amp;= \rho_f\label{eq:D}\\
-\nabla \cdot \mathbf{B} &amp;= 0\label{eq:B}\\
-\nabla \times \mathbf{E} &amp;= -\frac{\partial\mathbf{B}}{\partial t}\label{eq:E}\\
-\nabla \times \mathbf{H} &amp;= \mathbf{J}_f - \frac{\partial\mathbf{D}}{\partial t}\label{eq:H}
-\end{align}
-\]
-</p><p>You can also type inline equations as \(A x = b\).  Referencing equations is done as Eqs.&nbsp;\(\eqref{eq:E}\) and \(\eqref{eq:H}\).
+</li>
+<li><p>Mathematical and Algorithmic Biology
+</p>
+</li>
+</ul>
+<p>My current research focuses on applying graph limit techniques to better understand generalization behaviors of deep learning model tailored to graph data (graph neural networks). In particular, I am interested in the following questions (with some references to my work on the topics): 
+</p>
+<ol>
+<li><p>Continuity: To what extent, and under what assumptions, can we guarantee classification/prediction consistency of the deep learning model when the input graphs are “structurally” similar?  
+</p>
+</li>
+<li><p>Out-of-distribution size generalization: if a neural networks are trained to accurately predict a phenomenon on datasets of graphs of size \(n\), can we expect it to behave decently on “structurally” similar datasets of size \(N &gt; n\)? 
+</p>
+</li>
+<li><p>Optimization: Can gradient-based learning algorithms on deep learning architectures learn graph datasets? In light of computational hardness of many graph problems, we do not expect to be able to train an efficient model for every task, so what exactly is learnt? 
+</p>
+</li>
+</ol>
+<p>At the heart of these questions are different ways to endow the space of graphs with topological/geometric structures. This is where graph limit tools, built on decades of work in graph theory - come into play. Graphons are powerful mathematical object that captures convergent sequence of dense graphs. Beyond graphons, I am very curious in answering these questions for sparse graphs, which are more prevalent in practice (our recent paper uses graphop to model sparse graph limit). There is still much work to be done in applying these tools to better understand deep learning models on graphs, with many untested ideas. 
 </p>
 </td>
 </tr>
