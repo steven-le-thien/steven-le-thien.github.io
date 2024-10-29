@@ -371,3 +371,7 @@ table.imgtable, table.imgtable td {
 	border: none;
 	text-align: left;
 }
+
+a.bibbase.author.link[href="http://cs.stanford.edu/people/davidknowles/"] {
+  font-weight: bold;
+}
