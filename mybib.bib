@@ -6,6 +6,8 @@
   pages={92},
   year={2018},
   publisher={Frontiers Media SA},
+  abstract={Dysregulation of tyrosine kinase receptor (RTK) signaling pathways play important roles in glioblastoma (GBM). However, therapies targeting these signaling pathways have not been successful, partially because of drug resistance. Increasing evidence suggests that tumor heterogeneity, more specifically, GBM-associated stem and endothelial cell heterogeneity, may contribute to drug resistance. In this perspective article, we introduce a high-throughput, quantitative approach to profile plasma membrane RTKs on single cells. First, we review the roles of RTKs in cancer. Then, we discuss the sources of cell heterogeneity in GBM, providing context to the key cells directing resistance to drugs. Finally, we present our provisionally patented qFlow cytometry approach, and report results of a “proof of concept” patient-derived xenograft GBM study.},
+  keyword={system biology},
   url_Link={https://www.frontiersin.org/journals/bioengineering-and-biotechnology/articles/10.3389/fbioe.2018.00092/full},
   url_Paper={paper/chen2018characterizing.pdf}
 }
@@ -17,6 +19,8 @@
   pages={167--178},
   year={2019},
   organization={Springer International Publishing Cham},
+  abstract={In a recent paper (Zhang, Rao, and Warnow, Algorithms for Molecular Biology 2019), the INC (incremental tree building) algorithm was presented and proven to be absolute fast converging under standard sequence evolution models. A variant of INC which allows a set of disjoint constraint trees to be provided and then uses INC to merge the constraint trees was also presented (i.e., Constrained INC). We report on a study evaluating INC on a range of simulated datasets, and show that it has very poor accuracy in comparison to standard methods. We also explore the design space for divide-and-conquer strategies for phylogeny estimation that use Constrained INC, and show modifications that provide improved accuracy. In particular, we present INC-ML, a divide-and-conquer approach to maximum likelihood (ML) estimation that comes close to the leading ML heuristics in terms of accuracy, and is more accurate than the current best distance-based methods.},
+  keyword={phylogenetics},
   url_Link={https://link.springer.com/chapter/10.1007/978-3-030-18174-1_12},
 }
 
@@ -29,6 +33,8 @@
   pages={2--15},
   year={2020},
   publisher={IEEE},
+  abstract={Incremental tree building (INC) is a new phylogeny estimation method that has been proven to be absolute fast converging under standard sequence evolution models. A variant of INC, called Constrained-INC, is designed for use in divide-and-conquer pipelines for phylogeny estimation where a set of species is divided into disjoint subsets, trees are computed on the subsets using a selected base method, and then the subset trees are combined together. We evaluate the accuracy of INC and Constrained-INC for gene tree and species tree estimation on simulated datasets, and compare it to similar pipelines using NJMerge (another method that merges disjoint trees). For gene tree estimation, we find that INC has very poor accuracy in comparison to standard methods, and even Constrained-INC(using maximum likelihood methods to compute constraint trees) does not match the accuracy of the better maximum likelihood methods. Results for species trees are somewhat different, with Constrained-INC coming close to the accuracy of the best species tree estimation methods, while being much faster; furthermore, using Constrained-INC allows species tree estimation methods to scale to large datasets within limited computational resources. Overall, this study exposes the benefits and limitations of divide-and-conquer strategies for large-scale phylogenetic tree estimation.},
+  keyword={phylogenetics},
   url_Link={https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9093990},
   url_Paper={paper/le2020using.pdf}
 }
@@ -40,6 +46,8 @@
   pages={2020--05},
   year={2020},
   publisher={Cold Spring Harbor Laboratory},
+  abstract={One of the Grand Challenges in Science is the construction of the Tree of Life, an evolutionary tree containing several million species, spanning all life on earth. However, the construction of the Tree of Life is enormously computationally challenging, as all the current most accurate methods are either heuristics for NP-hard optimization problems or Bayesian MCMC methods that sample from tree space. One of the most promising approaches for improving scalability and accuracy for phylogeny estimation uses divide-and-conquer: a set of species is divided into overlapping subsets, trees are constructed on the subsets, and then merged together using a “supertree method”. Here, we present Exact-RFS-2, the first polynomial-time algorithm to find an optimal supertree of two trees, using the Robinson-Foulds Supertree (RFS) criterion (a major approach in supertree estimation that is related to maximum likelihood supertrees), and we prove that finding the RFS of three input trees is NP-hard. We also present GreedyRFS (a greedy heuristic that operates by repeatedly using Exact-RFS-2 on pairs of trees, until all the trees are merged into a single supertree). We evaluate Exact-RFS-2 and GreedyRFS, and show that they have better accuracy than the current leading heuristic for RFS.},
+  keyword={phylogenetics},
   url_Link={https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.WABI.2020.15},
   url_Paper={paper/yu2020advancing.pdf}
 }
@@ -52,6 +60,8 @@
   pages={1--18},
   year={2021},
   publisher={BioMed Central},
+  abstract={One of the Grand Challenges in Science is the construction of the Tree of Life, an evolutionary tree containing several million species, spanning all life on earth. However, the construction of the Tree of Life is enormously computationally challenging, as all the current most accurate methods are either heuristics for NP-hard optimization problems or Bayesian MCMC methods that sample from tree space. One of the most promising approaches for improving scalabil- ity and accuracy for phylogeny estimation uses divide-and-conquer: a set of species is divided into overlapping subsets, trees are constructed on the subsets, and then merged together using a “supertree method”. Here, we present Exact-RFS-2, the first polynomial-time algorithm to find an optimal supertree of two trees, using the Robinson-Foulds Supertree (RFS) criterion (a major approach in supertree estimation that is related to maximum likelihood supertrees), and we prove that finding the RFS of three input trees is NP-hard. Exact-RFS-2 is available in open source form on Github at https://github.com/yuxilin51/GreedyRFS.},
+  keyword={phylogenetics},
   url_Link={https://link.springer.com/article/10.1186/s13015-021-00189-2},
   url_Paper={paper/yu2021using.pdf}
 }
@@ -61,6 +71,8 @@
   author={Le, Thien and Jegelka, Stefanie},
   booktitle={International Conference on Learning Representations},
   year={2022},
+  abstract={The implicit bias induced by the training of neural networks has become a topic of rigorous study. In the limit of gradient flow and gradient descent with appropriate step size, it has been shown that when one trains a deep linear network with logistic or exponential loss on linearly separable data, the weights converge to rank-1 matrices. In this paper, we extend this theoretical result to the last few linear layers of the much wider class of nonlinear ReLU-activated feedforward networks containing fully-connected layers and skip connections. Similar to the linear case, the proof relies on specific local training invariances, sometimes referred to as alignment, which we show to hold for submatrices where neurons are stably-activated in all training examples, and it reflects empirical results in the literature. We also show this is not true in general for the full matrix of ReLU fully-connected layers. Our proof relies on a specific decomposition of the network into a multilinear function and another ReLU network whose weights are constant under a certain parameter directional convergence.},
+  keyword={implicit bias, ReLU neural networks, deep learning, gradient descent, deep learning theory},
   url_Link={https://arxiv.org/abs/2201.11968},
   url_Paper={paper/le2022training.pdf}
 }
@@ -71,6 +83,8 @@
   journal={Advances in Neural Information Processing Systems},
   volume={36},
   year={2023},
+  abstract={Can graph neural networks generalize to graphs that are different from the graphs they were trained on, e.g., in size? In this work, we study this question from a theoretical perspective. While recent work established such transferability and approximation results via graph limits, e.g., via graphons, these only apply nontrivially to dense graphs. To include frequently encountered sparse graphs such as bounded- degree or power law graphs, we take a perspective of taking limits of operators derived from graphs, such as the aggregation operation that makes up GNNs. This leads to the recently introduced limit notion of graphops (Backhausz and Szegedy, 2022). We demonstrate how the operator perspective allows us to develop quantitative bounds on the distance between a finite GNN and its limit on an infinite graph, as well as the distance between the GNN on graphs of different sizes that share structural properties, under a regularity assumption verified for various graph sequences. Our results hold for dense and sparse graphs, and various notions of graph limits.},
+  keyword={graph neural networks, representation, approximation theory, graph limit, sparse graph limit, graphons},
   url_Link={https://arxiv.org/abs/2306.04495},
   url_Paper={paper/le2023limits.pdf}
 }
