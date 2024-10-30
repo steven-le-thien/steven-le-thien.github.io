@@ -78,7 +78,7 @@ a:hover {
 }
 #layout-menu a:link, #layout-menu a:visited, #layout-menu a:hover {
 	'color: #527bbd;'
-  color: #0000A6;
+  color: #004A4A;
 	text-decoration: none;
 }
 #layout-menu a:hover {
@@ -127,7 +127,7 @@ strong {
 
 h1, h2, h3 {
 '	color: #527bbd;'
-  color: #0000A6;
+  color: #004A4A;
 	margin-top: 0.7em;
 	margin-bottom: 0.3em;
 	padding-bottom: 0.2em;
