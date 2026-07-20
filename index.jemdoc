@@ -3,23 +3,23 @@
 
 ~~~
 {}{img_left}{picture_pima.jpg}{picture_pima}{450px}{300px}{IMGLINKTARGET}
-PhD researcher\n 
-MIT Stata Center\n 
-32 Vassar St\n
-Cambridge, MA 02139\n
-Email: thienle \[at\] mit (dot) edu\n 
+Postdoctoral Fellow in Applied Mathematics\n
+Harvard University\n
+Cambridge, MA\n
+Email: thien_le \[at\] seas.harvard.edu\n
 Github: [https://github.com/steven-le-thien/ steven-le-thien]
 
 ~~~
 
 == About me
-I am a graduate student in [https://www.csail.mit.edu CSAIL/EECS] department at [https://www.mit.edu MIT] started in Fall 2019. I am fortunate to be advised by [https://people.csail.mit.edu/stefje/index.html Stefanie Jegelka]. I did my undergraduate in Mathematics and Computer Science  from 2016 to 2019 at [https://illinois.edu UIUC] where I was fortunate to work with [https://tandy.cs.illinois.edu Tandy Warnow] and her students on computational phylogenetics. Before that, I worked briefly in system biology with [https://sites.bioe.uw.edu/imoukhuede/ P.I. Imoukhuede] 
+Since October 2025, I have been a Postdoctoral Fellow in Applied Mathematics at [https://www.harvard.edu Harvard University], where I work with [https://weber.seas.harvard.edu Melanie Weber]. Previously, I was a graduate student in [https://www.csail.mit.edu CSAIL/EECS] at [https://www.mit.edu MIT], advised by [https://people.csail.mit.edu/stefje/index.html Stefanie Jegelka]. I did my undergraduate studies in Mathematics and Computer Science from 2016 to 2019 at [https://illinois.edu UIUC], where I worked with [https://tandy.cs.illinois.edu Tandy Warnow] and her students on computational phylogenetics. Before that, I worked briefly in systems biology with [https://sites.bioe.uw.edu/imoukhuede/ P.I. Imoukhuede].
 
 
 == Research
 I am broadly interested in 
 - Theory of (Geometric) Deep Learning 
 - Learning under Invariances/Equivariances 
+- Neural Algorithmic Reasoning and Combinatorial Optimization
 - Continuous Optimization
 - Mathematical and Algorithmic Biology
 
